@@ -1,0 +1,8 @@
+inherit_gem: { servactory-rubocop: rubocop-gem.yml }
+
+Style/Documentation:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    OpenTelemetry: opentelemetry

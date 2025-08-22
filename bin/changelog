@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+github_changelog_generator \
+  -u servactory \
+  -p servactory \
+  --output "CHANGELOG.md" \
+  --configure-sections "{ \
+    \"breaking-change\": { \"prefix\": \"**Breaking changes:**\", \"labels\":[\"breaking-change\"] }, \
+    \"feature\": { \"prefix\": \"**Implemented enhancements:**\", \"labels\":[\"feature\", \"polish\" ,\"tests\"] }, \
+    \"bug\": { \"prefix\": \"**Fixed:**\", \"labels\":[\"fix\"] }, \
+    \"dependencies\": { \"prefix\": \"**Dependencies:**\", \"labels\":[\"dependencies\"] }, \
+    \"documentation\": { \"prefix\": \"**Documentation:**\", \"labels\":[\"documentation\"] } \
+  }"
+
+echo -e "---\ntitle: Changelog\nprev: false\nnext: false\n---\n\n$(cat CHANGELOG.md)" > ../servactory.com/docs/CHANGELOG.md
+
+cp ../servactory.com/docs/CHANGELOG.md ../servactory.com/i18n/ru/docusaurus-plugin-content-docs/current/CHANGELOG.md
