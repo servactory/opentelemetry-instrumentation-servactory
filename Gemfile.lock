@@ -40,6 +40,7 @@ GEM
     lint_roller (1.1.0)
     logger (1.7.0)
     minitest (5.25.5)
+    mutex_m (0.3.0)
     opentelemetry-api (1.6.0)
     opentelemetry-common (0.22.0)
       opentelemetry-api (~> 1.0)
@@ -49,6 +50,13 @@ GEM
       opentelemetry-registry (~> 0.1)
     opentelemetry-registry (0.4.0)
       opentelemetry-api (~> 1.1)
+    opentelemetry-sdk (1.8.1)
+      opentelemetry-api (~> 1.1)
+      opentelemetry-common (~> 0.20)
+      opentelemetry-registry (~> 0.2)
+      opentelemetry-semantic_conventions
+    opentelemetry-semantic_conventions (1.11.0)
+      opentelemetry-api (~> 1.0)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -111,6 +119,13 @@ GEM
       rubocop-rspec (~> 3.5)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    servactory (2.16.0)
+      activesupport (>= 5.1, < 8.1)
+      base64 (>= 0.2)
+      bigdecimal (>= 3.1)
+      i18n (>= 1.14)
+      mutex_m (>= 0.3)
+      zeitwerk (>= 2.6)
     servactory-rubocop (0.9.0)
       rubocop (>= 1.73)
       rubocop-factory_bot (>= 2.27)
@@ -126,6 +141,7 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)
+    zeitwerk (2.7.3)
 
 PLATFORMS
   aarch64-linux-gnu
@@ -143,7 +159,9 @@ PLATFORMS
 DEPENDENCIES
   appraisal (>= 2.5)
   opentelemetry-instrumentation-servactory!
+  opentelemetry-sdk (~> 1.1)
   rspec (>= 3.13)
+  servactory (>= 2.16.0)
   servactory-rubocop (>= 0.9)
 
 BUNDLED WITH

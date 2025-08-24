@@ -34,5 +34,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "appraisal", ">= 2.5"
   spec.add_development_dependency "rspec", ">= 3.13"
+  spec.add_development_dependency "servactory", ">= 2.16.0"
+  spec.add_development_dependency "opentelemetry-sdk", "~> 1.1"
   spec.add_development_dependency "servactory-rubocop", ">= 0.9"
 end

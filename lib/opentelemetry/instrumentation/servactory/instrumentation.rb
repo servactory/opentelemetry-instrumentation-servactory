@@ -4,20 +4,46 @@ module OpenTelemetry
   module Instrumentation
     module Servactory
       class Instrumentation < OpenTelemetry::Instrumentation::Base
+        MINIMUM_VERSION = Gem::Version.new('2.16.0')
+
         install do |_config|
           require_dependencies
+          install_patches
         end
 
+        # TODO: constantize base_class from config[:base_class]
+        option :base_class, default: nil, validate: ->(value) { value.present? && value.is_a?(Class) }
+
         present do
-          # TODO: Replace true with a definition check of the gem being instrumented
-          # Example: `defined?(::Rack)`
-          true
+          defined?(::Servactory)
+        end
+
+        compatible do
+          Gem::Version.new(::Servactory::VERSION::STRING) >= MINIMUM_VERSION
         end
 
         private
 
         def require_dependencies
-          # TODO: Include instrumentation dependencies
+          require_relative "patches/extension"
+        end
+
+        def install_patches
+          # TODO: maybe constantize base_class from config[:base_class]?
+          base_class = config[:base_class]
+
+          if base_class.blank?
+            OpenTelemetry.logger.error(
+              "Instrumentation Servactory configuration option :base_class value=#{base_class.inspect} " \
+                "failed validation, installation aborted."
+            )
+
+            return
+          end
+
+          base_class.include(
+            ::Servactory::DSL.with_extensions(Patches::Extension)
+          )
         end
       end
     end
