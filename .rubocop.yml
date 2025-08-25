@@ -6,3 +6,7 @@ Style/Documentation:
 RSpec/SpecFilePathFormat:
   CustomTransform:
     OpenTelemetry: opentelemetry
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'Appraisals'

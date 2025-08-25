@@ -12,7 +12,7 @@ module OpenTelemetry
           end
 
           module ClassMethods
-            def call(...)
+            def call(...) # rubocop:disable Metrics/MethodLength
               tracer
                 .in_span(
                   name,
@@ -27,7 +27,7 @@ module OpenTelemetry
               end
             end
 
-            def call!(...)
+            def call!(...) # rubocop:disable Metrics/MethodLength
               tracer.in_span(
                 name,
                 attributes: {

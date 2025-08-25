@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'bundler/setup'
+require "bundler/setup"
 Bundler.require(:default, :development)
 
 # WTF: fixes "uninitialized constant Servactory::Configuration::CollectionMode::ClassNamesCollection::Forwardable"
