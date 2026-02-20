@@ -5,7 +5,7 @@ module OpenTelemetry
     module Servactory
       module Patches
         module Callable
-          def call(arguments = {})
+          def call(...)
             service_name = name || "AnonymousService"
             attributes = build_span_attributes(service_name, "call")
 
@@ -16,7 +16,7 @@ module OpenTelemetry
             end
           end
 
-          def call!(arguments = {}) # rubocop:disable Metrics/MethodLength
+          def call!(...) # rubocop:disable Metrics/MethodLength
             service_name = name || "AnonymousService"
             attributes = build_span_attributes(service_name, "call!")
 
