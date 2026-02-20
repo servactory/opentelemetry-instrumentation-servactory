@@ -158,7 +158,7 @@ PLATFORMS
 DEPENDENCIES
   appraisal (>= 2.5)
   opentelemetry-instrumentation-servactory!
-  opentelemetry-sdk (~> 1.4)
+  opentelemetry-sdk (>= 1.4)
   rspec (>= 3.13)
   servactory (>= 2.16.0)
   servactory-rubocop (>= 0.9)
