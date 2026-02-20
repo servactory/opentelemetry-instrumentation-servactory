@@ -29,7 +29,7 @@ To use the instrumentation, call `use` with the name of the instrumentation:
 
 ```ruby
 OpenTelemetry::SDK.configure do |c|
-  c.use "OpenTelemetry::Instrumentation::Servactory"
+  c.use("OpenTelemetry::Instrumentation::Servactory")
 end
 ```
 
@@ -53,11 +53,13 @@ Example with custom configuration:
 
 ```ruby
 OpenTelemetry::SDK.configure do |c|
-  c.use "OpenTelemetry::Instrumentation::Servactory", {
-    trace_actions: true,
-    record_input_names: false,
-    record_output_names: false
-  }
+  c.use(
+    "OpenTelemetry::Instrumentation::Servactory", {
+      trace_actions: true,
+      record_input_names: false,
+      record_output_names: false
+    }
+  )
 end
 ```
 
