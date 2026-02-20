@@ -15,3 +15,5 @@ appraise "rails-7.1"
 appraise "rails-7.2"
 
 appraise "rails-8.0"
+
+appraise "rails-8.1"
