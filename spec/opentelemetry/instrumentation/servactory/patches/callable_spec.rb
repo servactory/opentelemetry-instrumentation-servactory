@@ -18,6 +18,8 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Patches::Callable do
       it "sets span attributes", :aggregate_failures do
         expect(span.attributes["code.namespace"]).to eq("SuccessfulService")
         expect(span.attributes["code.function"]).to eq("call")
+        expect(span.attributes["servactory.system"]).to eq("servactory")
+        expect(span.attributes["servactory.version"]).to eq(Servactory::VERSION::STRING)
         expect(span.attributes["servactory.result"]).to eq("success")
         expect(span.attributes["servactory.input_names"]).to eq(["name"])
         expect(span.attributes["servactory.output_names"]).to eq(["greeting"])

@@ -18,6 +18,8 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Patches::Runner do
         span = spans.find { |s| s.name == "MultiActionService step_one" }
         expect(span.attributes["code.namespace"]).to eq("MultiActionService")
         expect(span.attributes["code.function"]).to eq("step_one")
+        expect(span.attributes["servactory.system"]).to eq("servactory")
+        expect(span.attributes["servactory.version"]).to eq(Servactory::VERSION::STRING)
       end
 
       it "creates action spans as children of the root span" do

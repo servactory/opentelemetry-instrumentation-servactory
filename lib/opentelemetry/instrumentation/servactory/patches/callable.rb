@@ -36,7 +36,12 @@ module OpenTelemetry
           private
 
           def build_span_attributes(service_name, method_name)
-            attributes = { "code.namespace" => service_name, "code.function" => method_name }
+            attributes = {
+              "code.namespace" => service_name,
+              "code.function" => method_name,
+              "servactory.system" => "servactory",
+              "servactory.version" => ::Servactory::VERSION::STRING
+            }
             append_attribute_names(attributes)
             attributes
           end
