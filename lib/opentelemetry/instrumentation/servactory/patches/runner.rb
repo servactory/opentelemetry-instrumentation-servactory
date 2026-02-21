@@ -8,7 +8,7 @@ module OpenTelemetry
           private
 
           def call_action(action)
-            span = start_action_span(action)
+            span = _otel_start_action_span(action)
             OpenTelemetry::Trace.with_span(span) do
               super
             rescue StandardError => e
@@ -20,14 +20,14 @@ module OpenTelemetry
             end
           end
 
-          def start_action_span(action)
+          def _otel_start_action_span(action)
             service_name = @context.class.name || "AnonymousService"
-            attributes = build_action_attributes(service_name, action.name.to_s)
+            attributes = _otel_build_action_attributes(service_name, action.name.to_s)
 
-            tracer.start_span("#{service_name} #{action.name}", attributes:, kind: :internal)
+            _otel_tracer.start_span("#{service_name} #{action.name}", attributes:, kind: :internal)
           end
 
-          def build_action_attributes(service_name, action_name)
+          def _otel_build_action_attributes(service_name, action_name)
             {
               "code.namespace" => service_name,
               "code.function" => action_name,
@@ -36,7 +36,7 @@ module OpenTelemetry
             }
           end
 
-          def tracer
+          def _otel_tracer
             OpenTelemetry::Instrumentation::Servactory::Instrumentation.instance.tracer
           end
         end
