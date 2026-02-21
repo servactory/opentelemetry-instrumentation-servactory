@@ -64,6 +64,29 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Patches::Callable do
         expect(span.attributes["servactory.result"]).to eq("success")
       end
     end
+
+    context "when service raises unexpected exception" do
+      let(:span) { spans.find { |s| s.name == "ExceptionService call" } }
+
+      before do
+        ExceptionService.call
+      rescue StandardError
+        nil
+      end
+
+      it "records the exception on span" do
+        exception_event = span.events&.find { |e| e.name == "exception" }
+        expect(exception_event).not_to be_nil
+      end
+
+      it "sets error result" do
+        expect(span.attributes["servactory.result"]).to eq("error")
+      end
+
+      it "re-raises the exception" do
+        expect { ExceptionService.call }.to raise_error(StandardError, /unexpected error/)
+      end
+    end
   end
 
   describe "#call!" do
