@@ -21,7 +21,7 @@ module OpenTelemetry
           end
 
           def _otel_start_action_span(action)
-            service_name = @context.class.name || "AnonymousService"
+            service_name = @context&.class&.name || "AnonymousService"
             attributes = _otel_build_action_attributes(service_name, action.name.to_s)
 
             _otel_tracer.start_span("#{service_name} #{action.name}", attributes:, kind: :internal)

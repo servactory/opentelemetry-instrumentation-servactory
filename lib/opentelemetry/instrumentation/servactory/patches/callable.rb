@@ -4,15 +4,21 @@ module OpenTelemetry
   module Instrumentation
     module Servactory
       module Patches
-        module Callable
-          def call(...)
+        module Callable # rubocop:disable Metrics/ModuleLength
+          def call(...) # rubocop:disable Metrics/MethodLength
             service_name = name || "AnonymousService"
             attributes = _otel_build_span_attributes(service_name, "call")
 
-            _otel_tracer.in_span("#{service_name} call", attributes:, kind: :internal) do |span|
+            span = _otel_tracer.start_span("#{service_name} call", attributes:, kind: :internal)
+            OpenTelemetry::Trace.with_span(span) do
               result = super
               _otel_record_result(span, result)
               result
+            rescue StandardError => e
+              _otel_record_exception_on_span(span, e)
+              raise
+            ensure
+              span.finish
             end
           end
 
@@ -62,13 +68,15 @@ module OpenTelemetry
 
           def _otel_input_names
             send(:collection_of_inputs).names.map(&:to_s)
-          rescue StandardError
+          rescue StandardError => e
+            OpenTelemetry.handle_error(exception: e, message: "Failed to collect Servactory input names")
             []
           end
 
           def _otel_output_names
             send(:collection_of_outputs).names.map(&:to_s)
-          rescue StandardError
+          rescue StandardError => e
+            OpenTelemetry.handle_error(exception: e, message: "Failed to collect Servactory output names")
             []
           end
 
