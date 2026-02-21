@@ -31,7 +31,6 @@ module OpenTelemetry
             {
               "code.namespace" => service_name,
               "code.function" => action_name,
-              "servactory.system" => "servactory",
               "servactory.version" => ::Servactory::VERSION::STRING
             }
           end

@@ -45,7 +45,6 @@ module OpenTelemetry
             attributes = {
               "code.namespace" => service_name,
               "code.function" => method_name,
-              "servactory.system" => "servactory",
               "servactory.version" => ::Servactory::VERSION::STRING
             }
             _otel_append_attribute_names(attributes)

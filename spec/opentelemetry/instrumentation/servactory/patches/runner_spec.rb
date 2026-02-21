@@ -25,8 +25,6 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Patches::Runner do
           .to eq("MultiActionService")
         expect(step_one_span.attributes["code.function"])
           .to eq("step_one")
-        expect(step_one_span.attributes["servactory.system"])
-          .to eq("servactory")
         expect(step_one_span.attributes["servactory.version"])
           .to eq(Servactory::VERSION::STRING)
       end

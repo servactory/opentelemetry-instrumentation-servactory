@@ -21,8 +21,6 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Patches::Callable do
           .to eq("SuccessfulService")
         expect(span.attributes["code.function"])
           .to eq("call")
-        expect(span.attributes["servactory.system"])
-          .to eq("servactory")
         expect(span.attributes["servactory.version"])
           .to eq(Servactory::VERSION::STRING)
         expect(span.attributes["servactory.result"])
