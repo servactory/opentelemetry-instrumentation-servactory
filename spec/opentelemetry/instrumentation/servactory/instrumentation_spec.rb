@@ -16,16 +16,16 @@ RSpec.describe OpenTelemetry::Instrumentation::Servactory::Instrumentation do
   end
 
   describe "#compatible?" do
-    it { expect(instrumentation.compatible?).to be true }
+    it { expect(instrumentation.compatible?).to be(true) }
   end
 
   describe "#install" do
     before { instrumentation.install }
 
     it "sets default config options", :aggregate_failures do
-      expect(instrumentation.config[:trace_actions]).to be true
-      expect(instrumentation.config[:record_input_names]).to be true
-      expect(instrumentation.config[:record_output_names]).to be true
+      expect(instrumentation.config[:trace_actions]).to be(true)
+      expect(instrumentation.config[:record_input_names]).to be(true)
+      expect(instrumentation.config[:record_output_names]).to be(true)
     end
   end
 end
