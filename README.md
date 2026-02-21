@@ -80,7 +80,6 @@ Users::CreateService call              (root span)
 | --- | --- | --- |
 | `code.namespace` | String | Service class name |
 | `code.function` | String | Method name (`call`, `call!`, or action name) |
-| `servactory.system` | String | Framework identifier (`servactory`) |
 | `servactory.version` | String | Servactory library version |
 | `servactory.result` | String | `success`, `failure`, or `error` |
 | `servactory.input_names` | Array | Input attribute names (when `record_input_names` is enabled) |
