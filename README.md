@@ -54,7 +54,8 @@ Example with custom configuration:
 ```ruby
 OpenTelemetry::SDK.configure do |c|
   c.use(
-    "OpenTelemetry::Instrumentation::Servactory", {
+    "OpenTelemetry::Instrumentation::Servactory", 
+    {
       trace_actions: true,
       record_input_names: false,
       record_output_names: false
