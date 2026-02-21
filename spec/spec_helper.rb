@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
+require "forwardable"
+require "servactory"
 require "opentelemetry/instrumentation/servactory"
+require "opentelemetry-sdk"
+
+Dir[File.join(__dir__, "support", "**", "*.rb")].each { |file| require file }
+
+EXPORTER = OpenTelemetry::SDK::Trace::Export::InMemorySpanExporter.new
+
+OpenTelemetry::SDK.configure do |c|
+  c.error_handler = ->(exception:, message:) { raise(exception || message) }
+  c.add_span_processor(OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(EXPORTER))
+  c.use("OpenTelemetry::Instrumentation::Servactory")
+end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -16,5 +29,9 @@ RSpec.configure do |config|
     # formatting an object. You can set length to nil to prevent RSpec from
     # doing truncation.
     c.max_formatted_output_length = nil
+  end
+
+  config.before do
+    EXPORTER.reset
   end
 end
